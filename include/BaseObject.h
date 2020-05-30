@@ -6,9 +6,7 @@
 // for 1 Player
 
 
-const int Size = 38 ;
-const int W = 17 ;
-const int H = 15 ;
+
 
 //
 class BaseObject
@@ -33,6 +31,8 @@ class BaseObject
       SDL_Texture *p_object;
       SDL_Rect rect_;
       SDL_Rect cropRect;
+      int frameX,frameY;
+      int frameH,frameW;
 
 };
 

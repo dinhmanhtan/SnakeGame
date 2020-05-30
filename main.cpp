@@ -83,6 +83,9 @@ bool Load_background()
     int ret3 = img_control.LoadIMG("Image/snake/control.png", g_screen);
     // Load Icon
 
+
+
+
     if( !ret || !ret1 || !ret2 || !ret3)
     {
         cout << "Error : Load image background is failed ." <<endl;
@@ -205,6 +208,8 @@ int main(int argc, char *argv[])
      icon.Initial_iconP1(g_screen);
      icon.set_iconP1();
 
+     float effect_time = 0.f;
+
  // Loop
   while( running ) {
 
@@ -239,10 +244,23 @@ int main(int argc, char *argv[])
 
       if(Call_menu  == true )               // Menu chính, chọn chế độ chơi
       {
+          effect_time += delta;
 
         SDL_RenderClear(g_screen);
         g_background_menu.Render(g_screen);
         menu.Draw_Menu(g_screen, font_menu,play1);
+
+     /*
+        if(effect_time >= 0.15f) {
+            frameEffect ++;
+            if(frameEffect >= 15)
+               frameEffect =0;
+         effect_time = 0.f;
+        }
+        effect.cropRect.y = frameEffect*189;
+
+        effect.Render(g_screen,&effect.cropRect);
+    */
         SDL_RenderPresent(g_screen) ;
 
 
@@ -323,7 +341,7 @@ int main(int argc, char *argv[])
 
                 snake.Update(delta ,eating_sound, dead_sound);
                 icon.Draw_textScoreP1(g_screen,font_score,font_G_over,snake,draw_textG_overP1);
-
+                snake.Draw_effect(g_screen,delta);
 
              }else {
                icon.Draw_gameOverP1(g_screen,snake);       // Khi game over

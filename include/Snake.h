@@ -5,7 +5,9 @@
 #include "BaseObject.h"
 
 
-
+const int Size = 38 ;
+const int W = 17 ;
+const int H = 15 ;
 
 class Coordinate
 {
@@ -68,7 +70,7 @@ class Snake : public BaseObject
 
     void SetPos_barrier();
 
-
+    void Draw_effect(SDL_Renderer *render, float& delta);
 
    public :
 
@@ -98,6 +100,9 @@ class Snake : public BaseObject
         BaseObject head_state[5] ;
         BaseObject barrier ;
         Coordinate Barriers[70];
+
+        BaseObject effect[2];
+        float timeEffect;
 
         int num_barrier;
         int highest_score[3];

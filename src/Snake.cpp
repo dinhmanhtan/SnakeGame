@@ -16,10 +16,11 @@ Snake::Snake( )
     paralyze = false;
 
     score =0;
-    frameTime = 0.f;
+    frameTime    = 0.f;
     timeParalyze = 0.f;
-    timeApple = 0.f;
-    timeCollide =0.f;
+    timeApple    = 0.f;
+    timeCollide  =0.f;
+
 
     num[0].x = 2;
     num[0].y = num[1].y = 1 ;
@@ -104,11 +105,29 @@ void Snake::Setup(SDL_Renderer* render) {
   // Load barrier image
 
    if( barrier.LoadIMG("Image/snake/barrier.png", render) == false )
-     cout << "Error : load image is failed." <<endl;
+     cout << "Error : load barrier image is failed." <<endl;
 
    barrier.SetSize(Size,Size);
 
+ // Load effect image
+   if( effect[0].LoadIMG("Image/snake/effect.png", render) == false )
+     cout << "Error : load effect image is failed." <<endl;
 
+   if( effect[1].LoadIMG("Image/snake/effect1.png", render) == false )
+     cout << "Error : load effect image is failed." <<endl;
+
+   SDL_QueryTexture(effect[0].p_object,NULL,NULL,&effect[0].frameW,&effect[0].frameH);
+   effect[0].cropRect.h =  effect[0].rect_.h = effect[0].frameH/15;
+   effect[0].cropRect.w =  effect[0].rect_.w = effect[0].frameW;
+
+   effect[0].cropRect.x = effect[0].cropRect.y =0;
+
+   SDL_QueryTexture(effect[1].p_object,NULL,NULL,&effect[1].frameW,&effect[1].frameH);
+
+   effect[1].cropRect.h = effect[1].rect_.h  = effect[1].frameH;
+   effect[1].cropRect.w =  effect[1].rect_.w = effect[1].frameW/15;
+
+   timeEffect   = 0.f;
 }
 
 
@@ -564,11 +583,54 @@ void Snake:: Reset_game()
     frameTime = 0.f;
     timeApple = 0.f;
     timeCollide =0.f;
+    timeEffect   = 0.f;
 
     num_barrier =0;
 
     game_over = false;
     collide_barrier = false;
+
+}
+
+void Snake::Draw_effect(SDL_Renderer *render, float& delta) {
+
+ /// When game over
+
+     timeEffect += delta;
+     effect[0].cropRect.x =  effect[1].cropRect.y=0;
+
+    if(preState == Left || preState == Right) {
+
+       effect[0].rect_.x = num[0].x*Size;
+       effect[0].rect_.y =  (num[0].y+1)*Size;
+
+   } else  if(preState == Up || preState == Down) {
+       effect[1].rect_.x =  (num[0].x-1)*Size;
+       effect[1].rect_.y =  (num[0].y+2)*Size;
+   }
+
+
+  if(timeEffect <= 0.3f)  {
+
+      effect[0].cropRect.y = effect[1].cropRect.x=0;
+
+      if(preState == Left || preState == Right)
+          effect[0].Render(render,&effect[0].cropRect);
+      else  if(preState == Up || preState == Down)
+          effect[1].Render(render,&effect[1].cropRect) ;
+
+  } else if(timeEffect <= 0.6f) {
+
+      effect[0].cropRect.y =  effect[1].cropRect.x =7*189;     ///cropRect.h = 189;
+
+      if(preState == Left || preState == Right)
+          effect[0].Render(render,&effect[0].cropRect);
+      else
+          effect[1].Render(render,&effect[1].cropRect) ;
+  }
+
+
+
 
 }
 
