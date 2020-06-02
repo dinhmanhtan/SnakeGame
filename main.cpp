@@ -19,6 +19,7 @@ Mix_Chunk *eating_sound;
 Mix_Music *Music_1Player;
 
 
+
 using namespace std;
 
 
@@ -85,8 +86,7 @@ bool Load_background()
 
 
 
-
-    if( !ret || !ret1 || !ret2 || !ret3)
+    if( !ret || !ret1 || !ret2 || !ret3 )
     {
         cout << "Error : Load image background is failed ." <<endl;
         return false;
@@ -210,6 +210,7 @@ int main(int argc, char *argv[])
 
      float effect_time = 0.f;
 
+
  // Loop
   while( running ) {
 
@@ -244,23 +245,12 @@ int main(int argc, char *argv[])
 
       if(Call_menu  == true )               // Menu chính, chọn chế độ chơi
       {
-          effect_time += delta;
+
 
         SDL_RenderClear(g_screen);
         g_background_menu.Render(g_screen);
         menu.Draw_Menu(g_screen, font_menu,play1);
 
-     /*
-        if(effect_time >= 0.15f) {
-            frameEffect ++;
-            if(frameEffect >= 15)
-               frameEffect =0;
-         effect_time = 0.f;
-        }
-        effect.cropRect.y = frameEffect*189;
-
-        effect.Render(g_screen,&effect.cropRect);
-    */
         SDL_RenderPresent(g_screen) ;
 
 
@@ -292,11 +282,15 @@ int main(int argc, char *argv[])
            }
 
         } else {
+
+          SDL_RenderClear(g_screen);
+          player_2.Draw_player2(g_screen,font_time,font_p2_score,delta,pauseP2);
+
           menu.DrawGame_OverP2(player_2,g_screen,font_G_over,font_);
 
 
-
         }
+
 
          SDL_RenderPresent(g_screen);
      } else if(play1 == true ) {             // Mode 1 người chơi

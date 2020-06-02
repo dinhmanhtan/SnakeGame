@@ -177,7 +177,7 @@ void Menu_Game::Handle_event(SDL_Event m_event , bool &running ,bool &Call_menu,
                      if(CheckFocusWithRect(xMouse,yMouse,text_menu[4].GetRect()) && text_menu[4].draw) {
                              player_2 = true;
                              Call_menu = false;
-
+                             p2.game_over = false;
                        }
 
                  }else {

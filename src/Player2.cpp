@@ -249,7 +249,7 @@ void Player2::Draw_item(SDL_Renderer *render, Fruit *f, const int & num)
 
 void Player2::Draw_player2(SDL_Renderer *render, TTF_Font *font1,  TTF_Font *font2, const float &time_val, bool &pauseP2)
 {
-    if( !pauseP2 && !game_over) {
+    if( !pauseP2 ) {
 
       back_ground.Render(render);
 
@@ -389,6 +389,8 @@ void Player2::Draw_player2(SDL_Renderer *render, TTF_Font *font1,  TTF_Font *fon
     Draw_item(render,mushroom,num_mushroom);
 
 /// Draw  time and score text
+
+
     string str = "Score : ";
     string p1 = str + to_string(s1.score);
     string p2 = str + to_string(s2.score);
@@ -402,7 +404,8 @@ void Player2::Draw_player2(SDL_Renderer *render, TTF_Font *font1,  TTF_Font *fon
         text_player[i].DrawTextA(render);
        }
 
-    time_player += 1.0*time_val;
+   if( ! game_over)
+        time_player += 1.0*time_val;
 
     Uint32 time = int(time_player);
     int m = time/60;

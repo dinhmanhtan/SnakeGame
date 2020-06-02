@@ -360,8 +360,8 @@ void Snake::Update( float delta, Mix_Chunk *eat, Mix_Chunk *dead)
             SetPos_barrier();
         }
 
-        if(num_barrier > highest_score[2])
-            highest_score[2] = num_barrier;
+        if(score > highest_score[2])
+            highest_score[2] = score;
 
       }
 
